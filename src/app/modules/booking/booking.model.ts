@@ -7,16 +7,21 @@ const bookingSchema = new Schema<IBooking>(
     startTime: { type: String },
     endTime: { type: String },
     user: {
-      type: Schema.Types.ObjectId,
+      // type: Schema.Types.ObjectId,
+      type: String,
       required: true,
       unique: true,
-      ref: 'User',
+      // ref: 'User',
     },
     facility: {
       type: Schema.Types.ObjectId,
       required: true,
       unique: true,
       ref: 'Facility',
+    },
+    payableAmount: {
+      type: Number,
+      required: true,
     },
     isBooked: {
       type: String,
