@@ -56,8 +56,18 @@ const getUserSpecificBookingsFromDB = async (email: string) => {
   return result;
 };
 
+const deleteBookingFromDB = async (id: string) => {
+  const result = await BookingModel.findByIdAndUpdate(
+    id,
+    { isBooked: 'canceled' },
+    { new: true, runValidators: true },
+  ).populate('facility');
+  return result;
+};
+
 export const BookingServices = {
   createBookingIntoDB,
   getAllBookingsFromDB,
   getUserSpecificBookingsFromDB,
+  deleteBookingFromDB,
 };
