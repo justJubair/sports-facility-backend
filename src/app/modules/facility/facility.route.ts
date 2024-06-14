@@ -1,13 +1,26 @@
 import express from 'express';
 import { FacilityControllers } from './faciliy.controller';
 import validateRequest from '../../middlewares/validateRequest';
-import { createFacilityValidationSchema } from './facility.validation';
+import {
+  createFacilityValidationSchema,
+  updateFacilityValidationSchema,
+} from './facility.validation';
+import auth from '../../middlewares/auth';
+import { User_ROLE } from '../user/user.constant';
 const router = express.Router();
 
 router.post(
-  '/create-facility',
+  '/',
+  auth(User_ROLE.admin),
   validateRequest(createFacilityValidationSchema),
   FacilityControllers.createFacility,
+);
+
+router.put(
+  '/:id',
+  auth(User_ROLE.admin),
+  validateRequest(updateFacilityValidationSchema),
+  FacilityControllers.updateFacility,
 );
 
 export const FacilityRoutes = router;

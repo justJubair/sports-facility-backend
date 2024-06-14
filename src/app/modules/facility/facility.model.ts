@@ -7,7 +7,7 @@ const facilitySchema = new Schema<IFacility>(
     description: { type: String },
     pricePerHour: { type: Number },
     location: { type: String },
-    isDeleted: { type: Boolean },
+    isDeleted: { type: Boolean, default: false },
   },
   {
     timestamps: true,

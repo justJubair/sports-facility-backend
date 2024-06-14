@@ -6,6 +6,18 @@ const createFacilityIntoDB = async (payload: IFacility) => {
   return result;
 };
 
+const updateFacilityIntoDB = async (
+  id: string,
+  payload: Partial<IFacility>,
+) => {
+  const result = await FacilityModel.findByIdAndUpdate(id, payload, {
+    new: true,
+    runValidators: true,
+  });
+  return result;
+};
+
 export const FacilityServices = {
   createFacilityIntoDB,
+  updateFacilityIntoDB,
 };
