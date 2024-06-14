@@ -7,6 +7,6 @@ export interface IBooking {
   user: Types.ObjectId;
   // user: String;
   facility: Types.ObjectId;
-  payableAmount: Number;
+  payableAmount: number;
   isBooked: 'confirmed' | 'unconfirmed' | 'canceled';
 }
