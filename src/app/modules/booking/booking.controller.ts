@@ -3,7 +3,10 @@ import { catchAsync, sendResponse } from '../../util';
 import { BookingServices } from './booking.service';
 
 const createBooking = catchAsync(async (req, res) => {
-  const result = await BookingServices.createBookingIntoDB(req?.body);
+  const result = await BookingServices.createBookingIntoDB(
+    req?.body,
+    req.userCredentials,
+  );
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -15,7 +18,7 @@ const createBooking = catchAsync(async (req, res) => {
 
 const getAllBookings = catchAsync(async (req, res) => {
   const result = await BookingServices.getAllBookingsFromDB();
-  // console.log(req.userCredentials);
+
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -24,7 +27,21 @@ const getAllBookings = catchAsync(async (req, res) => {
   });
 });
 
+const getUserSpecificBookings = catchAsync(async (req, res) => {
+  const result = await BookingServices.getUserSpecificBookingsFromDB(
+    req?.userCredentials.userEmail,
+  );
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Retrived bookings Successfully',
+    data: result,
+  });
+});
+
 export const BookingControllers = {
   createBooking,
   getAllBookings,
+  getUserSpecificBookings,
 };
