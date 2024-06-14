@@ -17,7 +17,17 @@ const updateFacilityIntoDB = async (
   return result;
 };
 
+const deleteFacilityFromDB = async (id: string) => {
+  const result = await FacilityModel.findByIdAndUpdate(
+    id,
+    { isDeleted: true },
+    { new: true, runValidators: true },
+  );
+  return result;
+};
+
 export const FacilityServices = {
   createFacilityIntoDB,
   updateFacilityIntoDB,
+  deleteFacilityFromDB,
 };

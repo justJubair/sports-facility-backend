@@ -23,4 +23,11 @@ router.put(
   FacilityControllers.updateFacility,
 );
 
+router.delete(
+  '/:id',
+  auth(User_ROLE.admin),
+  validateRequest(updateFacilityValidationSchema),
+  FacilityControllers.deleteFacility,
+);
+
 export const FacilityRoutes = router;
