@@ -38,6 +38,7 @@ const loginUser = async (payload: ILoginUser) => {
 
   return {
     accessToken,
+    isUserExists,
   };
 };
 

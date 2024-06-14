@@ -39,6 +39,12 @@ const createBookingIntoDB = async (payload: IBooking) => {
   }
 };
 
+const getAllBookingsFromDB = async () => {
+  const result = await BookingModel.find();
+  return result;
+};
+
 export const BookingServices = {
   createBookingIntoDB,
+  getAllBookingsFromDB,
 };

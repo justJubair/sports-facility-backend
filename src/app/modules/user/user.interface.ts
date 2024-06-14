@@ -1,3 +1,5 @@
+import { User_ROLE } from './user.constant';
+
 export interface IUser {
   name: string;
   email: string;
@@ -6,3 +8,5 @@ export interface IUser {
   role: string;
   address: string;
 }
+
+export type TUserRole = keyof typeof User_ROLE;
