@@ -30,4 +30,6 @@ router.delete(
   FacilityControllers.deleteFacility,
 );
 
+router.get('/', FacilityControllers.getAllFacilities);
+
 export const FacilityRoutes = router;
