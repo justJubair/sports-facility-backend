@@ -4,6 +4,7 @@ import { FacilityModel } from '../facility/facility.model';
 import { UserModel } from '../user/user.model';
 import { IBooking } from './booking.interface';
 import { BookingModel } from './booking.model';
+import { getCurrentDate } from './booking.utils';
 
 const createBookingIntoDB = async (payload: IBooking, userCredentials: any) => {
   const choosenFacility = await FacilityModel.findById(payload?.facility);
@@ -65,9 +66,19 @@ const deleteBookingFromDB = async (id: string) => {
   return result;
 };
 
+const getbookingAvailabilityFromDB = async (date: string | undefined) => {
+  // if date is not given
+
+  const currentDate = getCurrentDate();
+
+  const result = await BookingModel.find({ date: currentDate });
+  return result;
+};
+
 export const BookingServices = {
   createBookingIntoDB,
   getAllBookingsFromDB,
   getUserSpecificBookingsFromDB,
   deleteBookingFromDB,
+  getbookingAvailabilityFromDB,
 };

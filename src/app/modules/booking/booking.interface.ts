@@ -1,7 +1,7 @@
 import { Types } from 'mongoose';
 
 export interface IBooking {
-  date: Date;
+  date: String;
   startTime: string;
   endTime: string;
   user: Types.ObjectId;

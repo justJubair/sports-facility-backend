@@ -51,9 +51,25 @@ const deleteBooking = catchAsync(async (req, res) => {
   });
 });
 
+const getBookingAvailability = catchAsync(async (req, res) => {
+  const { date } = req?.query;
+
+  const result = await BookingServices.getbookingAvailabilityFromDB(
+    date as string,
+  );
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Availability checked Successfully',
+    data: result,
+  });
+});
+
 export const BookingControllers = {
   createBooking,
   getAllBookings,
   getUserSpecificBookings,
   deleteBooking,
+  getBookingAvailability,
 };

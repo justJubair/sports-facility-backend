@@ -3,7 +3,7 @@ import { IBooking } from './booking.interface';
 
 const bookingSchema = new Schema<IBooking>(
   {
-    date: { type: Date },
+    date: { type: String },
     startTime: { type: String },
     endTime: { type: String },
     user: {
