@@ -32,3 +32,10 @@ export const catchAsync = (fn: RequestHandler) => {
     Promise.resolve(fn(req, res, next)).catch((err) => next(err));
   };
 };
+
+export const addMinutes = (time: string, minsToAdd: number) => {
+  const [hours, minutes] = time.split(':').map(Number);
+  const date = new Date(0, 0, 0, hours, minutes + minsToAdd);
+
+  return `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+};

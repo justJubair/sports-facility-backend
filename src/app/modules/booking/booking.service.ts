@@ -5,6 +5,8 @@ import { UserModel } from '../user/user.model';
 import { IBooking } from './booking.interface';
 import { BookingModel } from './booking.model';
 import { getCurrentDate } from './booking.utils';
+import { addMinutes } from '../../util';
+import { default_endTime, default_startTime } from './booking.constant';
 
 const createBookingIntoDB = async (payload: IBooking, userCredentials: any) => {
   const choosenFacility = await FacilityModel.findById(payload?.facility);
@@ -69,10 +71,37 @@ const deleteBookingFromDB = async (id: string) => {
 const getbookingAvailabilityFromDB = async (date: string | undefined) => {
   // if date is not given
 
-  const currentDate = getCurrentDate();
+  const currentDate = date || getCurrentDate();
 
   const result = await BookingModel.find({ date: currentDate });
-  return result;
+
+  const generateTimeSlots = (start: string, end: string) => {
+    const slots: string[] = [];
+    let currentDate = start;
+
+    while (currentDate < end) {
+      const nextTime = addMinutes(currentDate, 30);
+      slots.push(`${currentDate}-${nextTime}`);
+      currentDate = nextTime;
+    }
+
+    return slots;
+  };
+
+  let allSlots = generateTimeSlots(default_startTime, default_endTime);
+
+  result.forEach((booking) => {
+    const bookingSlots = generateTimeSlots(booking.startTime, booking.endTime);
+    allSlots = allSlots.filter((slot) => !bookingSlots.includes(slot));
+  });
+
+  // Convert available slots to the desired format
+  const availableSlots = allSlots.map((slot) => {
+    const [startTime, endTime] = slot.split('-');
+    return { startTime, endTime };
+  });
+
+  return availableSlots;
 };
 
 export const BookingServices = {
