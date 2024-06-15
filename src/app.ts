@@ -18,9 +18,9 @@ const testRoute = async (req: Request, res: Response) => {
 
 app.get('/', testRoute);
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World!');
-});
+// app.get('/', (req: Request, res: Response) => {
+//   res.send('Hello World!');
+// });
 
 // Error Handler
 app.use(globalErrorHandler);
